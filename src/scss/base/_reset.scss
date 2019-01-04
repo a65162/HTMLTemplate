@@ -1,0 +1,33 @@
+body {
+  background-color: $gray-background-color !important;
+  font-size: 100% !important;
+  position: relative;
+  overflow-x: hidden;
+  height: auto;
+  width: 100%;
+
+  img {
+    width: 100%;
+    display: block;
+    transition: all .5s;
+  }
+
+  a {
+    display: block;
+    text-decoration: none;
+    transition: all .5s;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  ul {
+    padding: 0;
+    margin: 0;
+
+    li {
+      display: block;
+    }
+  }
+}

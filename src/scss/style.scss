@@ -1,0 +1,15 @@
+// grid
+@import '../../node_modules/bootstrap/scss/bootstrap';
+
+// Base
+@import "./base/variables";
+@import "./base/reset";
+
+// layouts
+@import "./layouts/default";
+@import "./layouts/first_sidbar";
+
+// components
+@import "./components/header";
+@import "./components/footer";
+@import "./components/first_sidbar";
