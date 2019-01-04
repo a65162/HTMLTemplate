@@ -69,5 +69,8 @@
       "import/newline-after-import": "off",
       "eol-last": "off"
     }
-  }
+  },
+  "eslintIgnore": [
+    "webpack.config.js"
+  ]
 }
