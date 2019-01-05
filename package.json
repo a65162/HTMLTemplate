@@ -26,6 +26,7 @@
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-loader": "^2.1.1",
     "eslint-plugin-import": "^2.14.0",
+    "expose-loader": "^0.7.5",
     "flow-bin": "^0.89.0",
     "flow-webpack-plugin": "^1.2.0",
     "html-loader": "^0.5.5",
@@ -67,7 +68,9 @@
       ],
       "no-empty": 2,
       "import/newline-after-import": "off",
-      "eol-last": "off"
+      "eol-last": "off",
+      "no-console": "off",
+      "no-undef": "off"
     }
   },
   "eslintIgnore": [

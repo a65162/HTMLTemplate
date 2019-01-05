@@ -64,17 +64,29 @@ module.exports = (env, argv) => {
                     exclude: /(node_modules|bower_components)/,
                     use: [
                         {
-                            loader: 'eslint-loader',
-                            // enforce: "pre",
-                        },
-                        {
                             loader: 'babel-loader',
                             options: {
                                 presets: ['@babel/preset-env']
                             }
-                        }
+                        },
+                        {
+                            loader: 'eslint-loader',
+                        },
                     ]
                 },
+                {
+                    test: require.resolve("jquery"),
+                    use: [
+                        {
+                            loader: 'expose-loader',
+                            options: '$'
+                        },
+                        {
+                            loader: 'expose-loader',
+                            options: 'jQuery'
+                        }
+                    ]
+                }
             ]
         },
         plugins: [

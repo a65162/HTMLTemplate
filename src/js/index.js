@@ -1,3 +1,2 @@
-// js
+// @flow
 import 'bootstrap';
-// import $ from './import-jquery';
