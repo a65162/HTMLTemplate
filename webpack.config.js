@@ -7,6 +7,8 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const FlowWebpackPlugin = require('flow-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const ImageminPlugin = require('imagemin-webpack-plugin').default;
+// const webpack = require('webpack');
 
 // To read file tpye of Pug
 fs.readdirSync('./src/pug', { withFileTypes: true }).forEach(function(elementName) {
@@ -25,17 +27,17 @@ fs.readdirSync('./src/pug', { withFileTypes: true }).forEach(function(elementNam
 module.exports = (env, argv) => {
     return {
         devServer: {
-        contentBase: path.join(__dirname, 'dest'),
-        compress: true,
-        port: 3000,
-        // hot: true,
-        // inline: true,
-        open: true,
-        overlay: {
-            // warnings: true,
-            errors: true
-        }
-    },
+            contentBase: path.join(__dirname, 'dest'),
+            compress: true,
+            port: 3000,
+            // hot: true,
+            // inline: true,
+            open: true,
+            overlay: {
+                // warnings: true,
+                errors: true
+            }
+        },
         entry: [
             './src/js/index.js',
             './src/scss/style.scss'
@@ -62,7 +64,7 @@ module.exports = (env, argv) => {
                 {
                     test: /\.m?js$/,
                     exclude: /(node_modules|bower_components)/,
-                    use: [
+                    use: [  
                         {
                             loader: 'babel-loader',
                             options: {
@@ -71,7 +73,7 @@ module.exports = (env, argv) => {
                         },
                         {
                             loader: 'eslint-loader',
-                        },
+                        }
                     ]
                 },
                 {
@@ -98,10 +100,19 @@ module.exports = (env, argv) => {
                     from: 'src/assets/images', 
                     to: 'images/' 
                 },
-                // {   from: 'src/video',
+                // {   from: 'src/assets/video',
                 //     to: 'video/' 
                 // }
             ]),
+            new ImageminPlugin(
+                { 
+                    test: /\.(jpe?g|png|gif|svg)$/i ,
+                    disable: argv.mode !== 'production',
+                    pngquant: {
+                        quality: '60-80'
+                    }
+                }
+            ),
             new CleanWebpackPlugin(['dest']),
             new FlowWebpackPlugin(),
             new OptimizeCSSAssetsPlugin({}),
