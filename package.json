@@ -11,7 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "jquery": "^3.3.1",
-    "bootstrap": "^4.2.1"
+    "bootstrap": "^4.2.1",
+    "popper.js": "^1.14.6"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
@@ -27,14 +28,15 @@
     "eslint-loader": "^2.1.1",
     "eslint-plugin-import": "^2.14.0",
     "expose-loader": "^0.7.5",
+    "file-loader": "^3.0.1",
     "flow-bin": "^0.89.0",
     "flow-webpack-plugin": "^1.2.0",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
+    "imagemin-webpack-plugin": "^2.3.0",
     "mini-css-extract-plugin": "^0.5.0",
     "node-sass": "^4.11.0",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
-    "popper.js": "^1.14.6",
     "postcss-loader": "^3.0.0",
     "pug": "^2.0.3",
     "pug-html-loader": "^1.1.5",

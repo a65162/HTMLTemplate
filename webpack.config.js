@@ -45,6 +45,7 @@ module.exports = (env, argv) => {
         output: {
             filename: 'js/bundle.js',
             path: path.resolve(__dirname, './dest'),
+            publicPath: '/',
         },
         module: {
             rules: [
@@ -53,7 +54,7 @@ module.exports = (env, argv) => {
                     use: ['html-loader','pug-html-loader']
                 },
                 {
-                    test: /\.scss$/,
+                    test: /\.(scss)$/,
                     use: [
                         argv.mode !== 'production' ? 'style-loader' : MiniCssExtractPlugin.loader,
                         "css-loader",
@@ -75,6 +76,26 @@ module.exports = (env, argv) => {
                             loader: 'eslint-loader',
                         }
                     ]
+                },
+                {   // For css
+                    test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+                    use: [{
+                        loader: 'file-loader',
+                        options: {
+                            name: '[name].[ext]',
+                            outputPath: 'fonts/',
+                        }
+                    }]
+                },
+                {   // For css
+                    test: /\.(gif|png|jpe?g|svg)$/i,
+                    use: [{
+                        loader: 'file-loader',
+                        options: {
+                            name: '[name].[ext]',
+                            outputPath: 'images/',
+                        }
+                    }]
                 },
                 {
                     test: require.resolve("jquery"),
@@ -100,9 +121,9 @@ module.exports = (env, argv) => {
                     from: 'src/assets/images', 
                     to: 'images/' 
                 },
-                // {   from: 'src/assets/video',
-                //     to: 'video/' 
-                // }
+                {   from: 'src/assets/video',
+                    to: 'video/' 
+                }
             ]),
             new ImageminPlugin(
                 { 
