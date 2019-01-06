@@ -3,7 +3,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const fs = require('fs');
 let PugFiles = [];
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const FlowWebpackPlugin = require('flow-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
@@ -27,7 +26,6 @@ fs.readdirSync('./src/pug', { withFileTypes: true }).forEach(function(elementNam
 module.exports = (env, argv) => {
     return {
         devServer: {
-            contentBase: path.join(__dirname, 'dest'),
             compress: true,
             port: 3000,
             open: true,
@@ -42,13 +40,22 @@ module.exports = (env, argv) => {
         output: {
             filename: 'js/bundle.js',
             path: path.resolve(__dirname, './dest'),
-            publicPath: '/',
         },
         module: {
             rules: [
                 {
                     test: /\.pug$/,
-                    use: ['html-loader','pug-html-loader']
+                    use: [
+                        {
+                            loader: 'html-loader',
+                            options: {
+                                attrs: ['img:src', 'source:src','video:poster']
+                            }
+                        },
+                        {
+                            loader: 'pug-html-loader'
+                        }
+                    ],
                 },
                 {
                     test: /\.(scss)$/,
@@ -74,23 +81,36 @@ module.exports = (env, argv) => {
                         }
                     ]
                 },
-                {   // For css
+                {
                     test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
                     use: [{
-                        loader: 'file-loader',
+                        loader: 'url-loader',
                         options: {
+                            limit: 25000,
                             name: '[name].[ext]',
                             outputPath: 'fonts/',
                         }
                     }]
                 },
-                {   // For css
+                {
                     test: /\.(gif|png|jpe?g|svg)$/i,
                     use: [{
-                        loader: 'file-loader',
+                        loader: 'url-loader',
                         options: {
+                            limit: 25000,
                             name: '[name].[ext]',
                             outputPath: 'images/',
+                        }
+                    }]
+                },
+                {
+                    test: /\.(mp4|mov)$/i,
+                    use: [{
+                        loader: 'url-loader',
+                        options: {
+                            limit: 25000,
+                            name: '[name].[ext]',
+                            outputPath: 'video/',
                         }
                     }]
                 },
@@ -113,15 +133,6 @@ module.exports = (env, argv) => {
             new MiniCssExtractPlugin({
                 filename: "css/style.css",
             }),
-            new CopyWebpackPlugin([
-                { 
-                    from: 'src/assets/images', 
-                    to: 'images/' 
-                },
-                // {   from: 'src/assets/video',
-                //     to: 'video/' 
-                // }
-            ]),
             new ImageminPlugin(
                 { 
                     test: /\.(jpe?g|png|gif|svg)$/i ,
