@@ -30,11 +30,8 @@ module.exports = (env, argv) => {
             contentBase: path.join(__dirname, 'dest'),
             compress: true,
             port: 3000,
-            // hot: true,
-            // inline: true,
             open: true,
             overlay: {
-                // warnings: true,
                 errors: true
             }
         },
@@ -121,9 +118,9 @@ module.exports = (env, argv) => {
                     from: 'src/assets/images', 
                     to: 'images/' 
                 },
-                {   from: 'src/assets/video',
-                    to: 'video/' 
-                }
+                // {   from: 'src/assets/video',
+                //     to: 'video/' 
+                // }
             ]),
             new ImageminPlugin(
                 { 
