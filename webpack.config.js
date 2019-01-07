@@ -32,7 +32,10 @@ module.exports = (env, argv) => {
             open: true,
             overlay: {
                 errors: true
-            }
+            },
+            allowedHosts: [
+                '.ngrok.io'
+            ]
         },
         entry: [
             './src/js/index.js',
