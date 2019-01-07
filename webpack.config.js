@@ -7,17 +7,18 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const FlowWebpackPlugin = require('flow-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
-// const webpack = require('webpack');
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+    // const webpack = require('webpack');
 
 // To read file tpye of Pug
 fs.readdirSync('./src/pug', { withFileTypes: true }).forEach(function(elementName) {
     let array = elementName.split(".");
     // Check that is a file or folder
-    if(array.length == 2) {
+    if (array.length == 2) {
         PugFiles.push(
             new HtmlWebpackPlugin({
                 template: `./src/pug/${ elementName }`,
-                filename:`./${ array[0]}.html`
+                filename: `./${ array[0]}.html`
             })
         )
     }
@@ -42,14 +43,12 @@ module.exports = (env, argv) => {
             path: path.resolve(__dirname, './dest'),
         },
         module: {
-            rules: [
-                {
+            rules: [{
                     test: /\.pug$/,
-                    use: [
-                        {
+                    use: [{
                             loader: 'html-loader',
                             options: {
-                                attrs: ['img:src', 'source:src','video:poster']
+                                attrs: ['img:src', 'source:src', 'video:poster', 'link:href']
                             }
                         },
                         {
@@ -69,8 +68,7 @@ module.exports = (env, argv) => {
                 {
                     test: /\.m?js$/,
                     exclude: /(node_modules|bower_components)/,
-                    use: [  
-                        {
+                    use: [{
                             loader: 'babel-loader',
                             options: {
                                 presets: ['@babel/preset-env']
@@ -93,7 +91,7 @@ module.exports = (env, argv) => {
                     }]
                 },
                 {
-                    test: /\.(gif|png|jpe?g|svg)$/i,
+                    test: /\.(gif|png|jpe?g|svg|ico)$/i,
                     use: [{
                         loader: 'url-loader',
                         options: {
@@ -116,8 +114,7 @@ module.exports = (env, argv) => {
                 },
                 {
                     test: require.resolve("jquery"),
-                    use: [
-                        {
+                    use: [{
                             loader: 'expose-loader',
                             options: '$'
                         },
@@ -133,15 +130,17 @@ module.exports = (env, argv) => {
             new MiniCssExtractPlugin({
                 filename: "css/style.css",
             }),
-            new ImageminPlugin(
-                { 
-                    test: /\.(jpe?g|png|gif|svg)$/i ,
-                    disable: argv.mode !== 'production',
-                    pngquant: {
-                        quality: '60-80'
-                    }
+            new ImageminPlugin({
+                test: /\.(jpe?g|png|gif|svg)$/i,
+                disable: argv.mode !== 'production',
+                pngquant: {
+                    quality: '60-80'
                 }
-            ),
+            }),
+            // new CopyWebpackPlugin([{
+            //     from: './src/assets/json/',
+            //     to: 'json/'
+            // }]),
             new CleanWebpackPlugin(['dest']),
             new FlowWebpackPlugin(),
             new OptimizeCSSAssetsPlugin({}),
