@@ -7,8 +7,8 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const FlowWebpackPlugin = require('flow-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
-const CopyWebpackPlugin = require('copy-webpack-plugin')
-    // const webpack = require('webpack');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+// const webpack = require('webpack');
 
 // To read file tpye of Pug
 fs.readdirSync('./src/pug', { withFileTypes: true }).forEach(function(elementName) {
@@ -90,6 +90,7 @@ module.exports = (env, argv) => {
                             limit: 25000,
                             name: '[name].[ext]',
                             outputPath: 'fonts/',
+                            publicPath: '../fonts/'
                         }
                     }]
                 },
@@ -101,6 +102,7 @@ module.exports = (env, argv) => {
                             limit: 25000,
                             name: '[name].[ext]',
                             outputPath: 'images/',
+                            publicPath: '../images/'
                         }
                     }]
                 },
@@ -112,6 +114,7 @@ module.exports = (env, argv) => {
                             limit: 25000,
                             name: '[name].[ext]',
                             outputPath: 'video/',
+                            publicPath: '../video/'
                         }
                     }]
                 },
