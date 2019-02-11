@@ -11,7 +11,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 // const webpack = require('webpack');
 
 // To read file tpye of Pug
-fs.readdirSync('./src/pug', { withFileTypes: true }).forEach(function(elementName) {
+fs.readdirSync('./src/pug').forEach(function(elementName) {
     let array = elementName.split(".");
     // Check that is a file or folder
     if (array.length == 2) {
