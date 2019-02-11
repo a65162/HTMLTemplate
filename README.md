@@ -23,7 +23,7 @@
 ```
 
 ## Node Version
-Recommand node verison must greater than 9.00.
+Recommand that node verison must be v11.9.0.
 
 ## Installation
 
